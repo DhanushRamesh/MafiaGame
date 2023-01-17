@@ -1,0 +1,18 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  gap: 3em;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+}
+
+.brand-img {
+  width: 20em;
+  height: 20em;
+}
+
+.start-btn {
+    width: 20em;
+}
