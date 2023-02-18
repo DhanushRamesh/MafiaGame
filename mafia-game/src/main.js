@@ -18,6 +18,10 @@ Vue.prototype.$convertObjToJSONStr = function (jsonObj) {
   return JSON.stringify(jsonObj);
 };
 
+Vue.prototype.$removeDataFromStorage = function (key) {
+  localStorage.removeItem(key);
+};
+
 Vue.prototype.$setDataToStorage = function (key, value) {
   localStorage.setItem(key, value);
 };

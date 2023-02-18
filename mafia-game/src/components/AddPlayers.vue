@@ -24,7 +24,7 @@
             <span @click="editPlayerPopup(player.name, index)">
               <b-icon icon="pencil" type="is-white"></b-icon>
             </span>
-            <span>
+            <span @click="deletePlayer(index)">
               <b-icon icon="trash-can" type="is-danger"></b-icon>
             </span>
           </div>
@@ -66,7 +66,7 @@ export default {
       /* ****** Create a new player object and set to local storage ****** */
       let playerObjStr = this.createNewPlayer();
       this.setPlayersListToStorage(playerObjStr);
-      
+
       this.updatePlayersList();
     },
 
@@ -99,6 +99,8 @@ export default {
           let playerObj = JSON.parse(jsonStr);
           this.playersList.push(playerObj);
         });
+      } else {
+        this.playersList = [];
       }
     },
 
@@ -124,13 +126,34 @@ export default {
       playerObj.name = editedPlayerName;
       playersListOfJSONStr[index] = this.$convertObjToJSONStr(playerObj);
 
-      let updatedPlayersJSONStr = this.updatePlayerName(playersListOfJSONStr);
+      let updatedPlayersJSONStr = this.getUpdatedPlayersListStr(playersListOfJSONStr);
       this.setPlayersListToStorage(updatedPlayersJSONStr);
 
       this.updatePlayersList();
     },
 
-    updatePlayerName(playersListOfJSONStr) {
+    deletePlayer(index) {
+      /* ****** Deletes a player from the list and set to storage ****** */
+      let playersListOfJSONStr = this.getPlayerStrListFromStorage();
+      let playerObjToBeDeleted = playersListOfJSONStr[index];
+
+      /* Remove the player from the list and return the updated array */ 
+      const updatedPlayersList = playersListOfJSONStr.filter((player) => {
+        return player !== playerObjToBeDeleted;
+      });
+
+      let updatedPlayersJSONStr = this.getUpdatedPlayersListStr(updatedPlayersList);
+
+      if (updatedPlayersJSONStr !== "") {
+        this.setPlayersListToStorage(updatedPlayersJSONStr);
+      } else {
+        this.$removeDataFromStorage("playersList");
+      }
+
+      this.updatePlayersList();
+    },
+
+    getUpdatedPlayersListStr(playersListOfJSONStr) {
       /* ****** Returns the updated players list of string type ****** */
       let updatedPlayersJSONStr = "";
 
