@@ -1,0 +1,89 @@
+@font-face {
+  font-family: "Raleway-SemiBold";
+  font-style: normal;
+  src: url("../../../MafiaGame/mafia-game/public/fonts/Raleway/Raleway-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway-Bold";
+  font-style: normal;
+  src: url("../../../MafiaGame/mafia-game/public/fonts/Raleway/Raleway-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway-ExtraBold";
+  font-style: normal;
+  src: url("../../../MafiaGame/mafia-game/public/fonts/Raleway/Raleway-ExtraBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway-ExtraLight";
+  font-style: normal;
+  src: url("../../../MafiaGame/mafia-game/public/fonts/Raleway/Raleway-ExtraLight.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway-Heavy";
+  font-style: normal;
+  src: url("../../../MafiaGame/mafia-game/public/fonts/Raleway/Raleway-Heavy.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway-Light";
+  font-style: normal;
+  src: url("../../../MafiaGame/mafia-game/public/fonts/Raleway/Raleway-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway-Medium";
+  font-style: normal;
+  src: url("../../../MafiaGame/mafia-game/public/fonts/Raleway/Raleway-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway-Regular";
+  font-style: normal;
+  src: url("../../../MafiaGame/mafia-game/public/fonts/Raleway/Raleway-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway-Thin";
+  font-style: normal;
+  src: url("../../../MafiaGame/mafia-game/public/fonts/Raleway/Raleway-Thin.ttf") format("truetype");
+}
+
+body {
+  font-family: Raleway-SemiBold;
+}
+
+.b-steps .steps .step-items .step-item.is-active .step-marker {
+  background-color: white;
+  border-color: #167df0;
+  color: #000000;
+}
+
+.b-steps .steps .step-items .step-item .step-marker {
+  color: #000000;
+}
+
+.b-steps .steps .step-items .step-item.is-previous .step-marker {
+  color: white;
+  background-color: #167df0;
+}
+
+.b-steps .steps .step-items .step-item::before,
+.b-steps .steps .step-items .step-item::after {
+  background: #167df0;
+}
+
+.input {
+  background-color: #e3e3e3;
+  font-family: "Raleway-Regular";
+}
+
+.button {
+  background-color: #2276d5;
+  border-color: #167df0;
+  color: #fff;
+  font-family: "Raleway-Bold";
+}

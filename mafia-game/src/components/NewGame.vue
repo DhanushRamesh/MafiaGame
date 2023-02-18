@@ -11,21 +11,22 @@
       :label-position="labelPosition"
       :mobile-mode="mobileMode"
     >
-      <b-step-item step="1" label="Add Players" :clickable="isStepsClickable">
+      <b-step-item step="1" :clickable="isStepsClickable">
+        <h1 class="new-game-step-title">Add Players</h1>
         <AddPlayers />
       </b-step-item>
 
-      <b-step-item step="2" label="Profile" :clickable="isStepsClickable" :type="{ 'is-success': isProfileSuccess }">
+      <b-step-item step="2"  :clickable="isStepsClickable" :type="{ 'is-success': isProfileSuccess }">
         <h1 class="title has-text-centered">Profile</h1>
         Lorem ipsum dolor sit amet.
       </b-step-item>
 
-      <b-step-item step="3" :visible="showSocial" label="Social" :clickable="isStepsClickable">
+      <b-step-item step="3" :visible="showSocial" :clickable="isStepsClickable">
         <h1 class="title has-text-centered">Social</h1>
         Lorem ipsum dolor sit amet.
       </b-step-item>
 
-      <b-step-item :step="showSocial ? '4' : '3'" label="Finish" :clickable="isStepsClickable" disabled>
+      <b-step-item :step="showSocial ? '4' : '3'"  :clickable="isStepsClickable" disabled>
         <h1 class="title has-text-centered">Finish</h1>
         Lorem ipsum dolor sit amet.
       </b-step-item>
@@ -44,7 +45,7 @@
 import AddPlayers from "@/components/AddPlayers.vue";
 export default {
   name: "NewGame",
-  components: {AddPlayers},
+  components: { AddPlayers },
   data() {
     return {
       activeStep: 0,

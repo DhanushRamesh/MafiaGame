@@ -2,16 +2,23 @@
   <div class="add-players-container">
     <!-- ==================== Add player action ==================== -->
     <section class="add-player-action-container">
-      <b-input v-model="playerName" type="is-success" placeholder="Enter player name" maxlength="10"></b-input>
-      <b-button @click="addPlayer" type="is-success">Add</b-button>
+      <input type="text"  v-model="playerName" autocomplete="on" maxlength="10" placeholder="Enter player name" class="input">
+      <b-button @click="addPlayer">Add</b-button>
     </section>
     <!-- ================== / Add player action ==================== -->
 
     <!-- ====================== Players List ======================== -->
     <section class="added-players-list-container">
       <ul class="players-list">
-        <li v-for="player in playersList" :key="player.name">
-          {{ player.name }}
+        <li class="player-container" v-for="(player,index) in playersList" :key="index">
+          <div class="player-name">
+            <span>{{ index + 1 }}</span>.
+            <span>{{ player.name }}</span>
+          </div>
+          <div class="player-action">
+            <b-icon icon="pencil" type="is-white"></b-icon>
+            <b-icon icon="trash-can" type="is-danger"></b-icon>
+          </div>
         </li>
       </ul>
     </section>
