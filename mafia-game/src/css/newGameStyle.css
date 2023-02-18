@@ -1,0 +1,52 @@
+.new-game-container {
+  height: 100vh;
+  padding: 3em;
+  background: #0c0c0c;
+}
+
+.new-game-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.new-game-wrapper .step-content {
+  height: calc(100% - 4rem);
+  width: 100%;
+}
+
+.new-game-wrapper .step-content .step-item {
+  width: 100%;
+  height: 100%;
+}
+.new-game-wrapper .step-navigation {
+  min-height: 2rem;
+}
+
+.add-players-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.add-player-action-container {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  height: 4rem;
+}
+
+.add-player-action-container .control.is-clearfix {
+  width: calc(100% - 7rem);
+}
+
+.add-player-action-container button {
+  min-width: 7rem;
+}
+
+.added-players-list-container {
+  display: flex;
+  height: calc(100% - 4rem);
+  border: 1px solid #565656;
+  border-radius: 0.25rem;
+}
