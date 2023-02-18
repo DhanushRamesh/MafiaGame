@@ -81,9 +81,17 @@ body {
   font-family: "Raleway-Regular";
 }
 
-.button {
+.button,
+.modal-card-foot button.is-primary {
   background-color: #2276d5;
   border-color: #167df0;
   color: #fff;
   font-family: "Raleway-Bold";
+}
+
+.modal-card-foot button {
+  background-color: white;
+  border-color: #dbdbdb;
+  border-width: 1px;
+  color: #363636;
 }

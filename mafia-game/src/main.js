@@ -10,6 +10,22 @@ Vue.use(Buefy);
 
 Vue.config.productionTip = false;
 
+Vue.prototype.$convertJsonStrToObj = function (jsonStr) {
+  return JSON.parse(jsonStr);
+};
+
+Vue.prototype.$convertObjToJSONStr = function (jsonObj) {
+  return JSON.stringify(jsonObj);
+};
+
+Vue.prototype.$setDataToStorage = function (key, value) {
+  localStorage.setItem(key, value);
+};
+
+Vue.prototype.$getDataFromStorage = function (key) {
+  return localStorage.getItem(key);
+};
+
 new Vue({
   router,
   render: (h) => h(App)

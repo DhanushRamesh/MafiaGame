@@ -2,7 +2,7 @@
   <div class="add-players-container">
     <!-- ==================== Add player action ==================== -->
     <section class="add-player-action-container">
-      <input type="text"  v-model="playerName" autocomplete="on" maxlength="10" placeholder="Enter player name" class="input">
+      <input type="text" v-model="playerName" autocomplete="on" maxlength="10" placeholder="Enter player name" class="input" />
       <b-button @click="addPlayer">Add</b-button>
     </section>
     <!-- ================== / Add player action ==================== -->
@@ -10,15 +10,25 @@
     <!-- ====================== Players List ======================== -->
     <section class="added-players-list-container">
       <ul class="players-list">
-        <li class="player-container" v-for="(player,index) in playersList" :key="index">
+        <li class="player-container" v-for="(player, index) in playersList" :key="index">
+          <!--                                                                                     -->
+          <!-- ------------------------ Player name ------------------------ -->
           <div class="player-name">
-            <span>{{ index + 1 }}</span>.
-            <span>{{ player.name }}</span>
+            <span>{{ index + 1 }}</span
+            >. <span> {{ player.name }}</span>
           </div>
+          <!-- ---------------------- / Player name ------------------------ -->
+
+          <!-- --------------------- Player Actions ------------------------ -->
           <div class="player-action">
-            <b-icon icon="pencil" type="is-white"></b-icon>
-            <b-icon icon="trash-can" type="is-danger"></b-icon>
+            <span @click="editPlayerPopup(player.name, index)">
+              <b-icon icon="pencil" type="is-white"></b-icon>
+            </span>
+            <span>
+              <b-icon icon="trash-can" type="is-danger"></b-icon>
+            </span>
           </div>
+          <!-- ------------------- / Player Actions ------------------------ -->
         </li>
       </ul>
     </section>
@@ -44,7 +54,7 @@ export default {
   methods: {
     addPlayer() {
       /* ****** Adds Player to the players list ****** */
-      if (localStorage.getItem("playersList") === null) {
+      if (this.$getDataFromStorage("playersList") === null) {
         this.createPlayersListAndAddPlayer();
       } else {
         this.addPlayerToExistingPlayersList();
@@ -55,7 +65,8 @@ export default {
     createPlayersListAndAddPlayer() {
       /* ****** Create a new player object and set to local storage ****** */
       let playerObjStr = this.createNewPlayer();
-      localStorage.setItem("playersList", playerObjStr);
+      this.setPlayersListToStorage(playerObjStr);
+      
       this.updatePlayersList();
     },
 
@@ -63,24 +74,25 @@ export default {
       /* ****** Create a new player object and append to existing local storage *******/
       let playerObjStr = this.createNewPlayer();
 
-      let playersJSONStr = localStorage.getItem("playersList");
+      let playersJSONStr = this.$getDataFromStorage("playersList");
       playersJSONStr = playersJSONStr + "||" + playerObjStr;
 
-      localStorage.setItem("playersList", playersJSONStr);
+      this.setPlayersListToStorage(playersJSONStr);
+
       this.updatePlayersList();
     },
 
     createNewPlayer() {
       /* ****** Returns stringified player object ****** */
       let playerObj = { name: this.playerName, role: "Villager", isDead: false };
+
       return JSON.stringify(playerObj);
     },
 
     updatePlayersList() {
       /* ****** Updates the playersList ****** */
-      if (localStorage.getItem("playersList") !== null) {
-        let playersJSONStr = localStorage.getItem("playersList");
-        let playersListOfJSONStr = playersJSONStr.split("||");
+      if (this.$getDataFromStorage("playersList") !== null) {
+        let playersListOfJSONStr = this.getPlayerStrListFromStorage();
 
         this.playersList = [];
         playersListOfJSONStr.forEach((jsonStr) => {
@@ -88,6 +100,62 @@ export default {
           this.playersList.push(playerObj);
         });
       }
+    },
+
+    editPlayerPopup(playerName, index) {
+      /* ****** Opens Popup for editing player name ****** */
+      this.$buefy.dialog.prompt({
+        inputAttrs: {
+          value: playerName,
+          maxlength: 10
+        },
+        trapFocus: true,
+        onConfirm: (editedPlayerName) => {
+          this.editPlayerName(editedPlayerName, index);
+        }
+      });
+    },
+
+    editPlayerName(editedPlayerName, index) {
+      /* ****** Edits the player name and sets to storage ****** */
+      let playersListOfJSONStr = this.getPlayerStrListFromStorage();
+      let playerObj = this.$convertJsonStrToObj(playersListOfJSONStr[index]);
+
+      playerObj.name = editedPlayerName;
+      playersListOfJSONStr[index] = this.$convertObjToJSONStr(playerObj);
+
+      let updatedPlayersJSONStr = this.updatePlayerName(playersListOfJSONStr);
+      this.setPlayersListToStorage(updatedPlayersJSONStr);
+
+      this.updatePlayersList();
+    },
+
+    updatePlayerName(playersListOfJSONStr) {
+      /* ****** Returns the updated players list of string type ****** */
+      let updatedPlayersJSONStr = "";
+
+      playersListOfJSONStr.forEach((jsonStr) => {
+        if (updatedPlayersJSONStr === "") {
+          updatedPlayersJSONStr = jsonStr;
+        } else {
+          updatedPlayersJSONStr = updatedPlayersJSONStr + "||" + jsonStr;
+        }
+      });
+
+      return updatedPlayersJSONStr;
+    },
+
+    getPlayerStrListFromStorage() {
+      /* ****** Updates the players List ****** */
+      let playersJSONStr = this.$getDataFromStorage("playersList");
+      let playersListOfJSONStr = playersJSONStr.split("||");
+
+      return playersListOfJSONStr;
+    },
+
+    setPlayersListToStorage(updatedPlayersJSONStr) {
+      /* ****** Sets players list to local storage ****** */
+      this.$setDataToStorage("playersList", updatedPlayersJSONStr);
     }
   }
 };
